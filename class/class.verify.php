@@ -72,6 +72,11 @@ Class verify{
         }
     }
 
+    public function checkusermail($usermail){
+        if(!trim($usermail)){
+            return "empty";
+        }
+    }
 }
 
 

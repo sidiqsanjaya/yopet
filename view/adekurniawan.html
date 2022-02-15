@@ -1,15 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adopt Pet - With more adoptable pets than ever, we have an urgent need for pet adopters</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="https://cdn2.iconfinder.com/data/icons/charity-31/512/CharityIcons-50-512.png">
-</head>
-
 <body class="font-inter">
     <div class="container px-8 lg:px-32 xl:px-40 mx-auto">
         <!-- Navbar -->
@@ -50,20 +38,49 @@
 
         <!-- component -->
 
-        <div class="grid lg:grid-cols-3 grid-cols-1 gap-4 mt-12">
-            <div class="w-full " style="">
+        <div class="grid lg:grid-cols-3 grid-cols-1 gap-0 lg:gap-4 mt-2 lg:mt-12">
+            <div class="min-w-full">
                 <img class="w-full h-full object-cover max-h-64 md:max-h-96 rounded-lg" src='availablepet/persian-cat.jpg' alt='images'>
             </div>
-            <div class="col-span-2">
+            <div class="col-span-2 mt-4 lg:mt-0">
                 <div class="flex justify-between">
-                    <p class="text-xl font-semibold">
+                    <p class="text-2xl font-semibold">
+                        <!-- <i class="material-icons items-center flex text-xl">person</i> -->
                         Ade Kurniawan
                     </p>
-                    <p class="text-slate-500">18 Februari 2022</p>
+                    <p class="text-slate-500 flex items-center">18 Februari 2022</p>
                 </div>
                 <h2 class="mt-2">
-                    <div class="flex ">
+                    <!-- <div class="flex ">
                         <p class="tracking-wide">18 Month<span> | </span>Male <span> | </span>2.8 Kg <span> | </span> Bandung <span> | </span> Vaccinated</p>
+                    </div> -->
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="Type bg-lime-100 p-4 rounded-xl">
+                            <h1 class="text-xl text-cyan-600">Age</h1>
+                            <p>18 Month</p>
+                        </div>
+
+
+                        <div class="Type bg-violet-100 p-4 rounded-xl">
+                            <h1 class="text-xl text-cyan-600">Sex</h1>
+                            <p>Male</p>
+                        </div>
+
+                        <div class="Type bg-orange-100 p-4 rounded-xl">
+                            <h1 class="text-xl text-cyan-600">Weight</h1>
+                            <p>2.8 Kg</p>
+                        </div>
+
+                        <div class="Type bg-green-100 p-4 rounded-xl">
+                            <h1 class="text-xl text-cyan-600">Status</h1>
+                            <p>Vaccinated</p>
+                        </div>
+
+                    </div>
+
+                    <div class="">
+
                     </div>
                 </h2>
                 <p class="text-lg text-gray-500 mt-2 text-justify"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro qui aliquam laudantium molestiae officiis adipisci voluptas pariatur velit obcaecati quisquam, nihil reiciendis. Esse officiis cupiditate maiores fuga! Excepturi explicabo
@@ -82,41 +99,56 @@
             </div>
         </div>
 
-        <div class="border-t mt-4"></div>
+        <!-- Galleries -->
+        <section class="mt-12">
+            <div class="">
+                <h1 class="font-semibold text-xl text-center my-4">Galleries</h1>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+                <img class="object-cover h-32 w-96 rounded-lg" src="images/1.png" alt="">
+                <img class="object-cover h-32 w-96 rounded-lg" src="images/2.png" alt="">
+                <img class="object-cover h-32 w-96 rounded-lg" src="images/3.png" alt="">
+                <img class="object-cover h-32 w-96 rounded-lg" src="images/4.png" alt="">
+            </div>
+        </section>
 
         <!-- Discussion -->
-        <div class="border p-6 rounded-lg">
+        <section class="bg-gray-50 p-4 mt-12 rounded-xl">
 
-            <div class="border">
-                <form action="" class="">
-                    <div class="flex items-center border-b border-teal-500 py-2">
-                        <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Jane Doe" aria-label="Full name">
-                        <button class="flex-shrink-0 mr-2 bg-blue-600 text-white py-2 px-4 rounded" type="button">
+            <div class="discussion">
+                <h1 class="text-xl font-semibold mb-4 text-center  ">Discussion</h1>
+
+                <div class="border mb-6 rounded-lg">
+                    <form action="" class="">
+                        <div class="flex items-center py-2">
+                            <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-4 leading-tight  focus:outline-none" type="text" placeholder="Write a comment" aria-label="Full name">
+                            <button class="flex-shrink-0 mr-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-2 px-6 rounded" type="button">
                           submit
                         </button>
-                    </div>
-                </form>
-            </div>
+                        </div>
+                    </form>
+                </div>
 
-            <div class="border px-4 py-2 mt-4 rounded-lg">
-                <p>
-                    <div class="flex justify-between">
-                        <h1 class="font-semibold">Juliadit Syahputra</h1>
-                        <p class="text-slate-500">22 Maret 2021</p>
-                    </div>
-                </p>
-                <p class="mt-2">Ready Stok bang?</p>
-            </div>
+                <div class="border px-4 py-2 mt-4 rounded-lg">
+                    <p>
+                        <div class="flex justify-between">
+                            <h1 class="font-semibold">Juliadit Syahputra</h1>
+                            <p class="text-slate-500">22 Maret 2021</p>
+                        </div>
+                    </p>
+                    <p class="mt-2">Ready Stok bang?</p>
+                </div>
 
-            <div class="border px-4 py-2 rounded-lg mt-4">
-                <p>
-                    <div class="flex justify-between">
-                        <h1 class="font-semibold">Juliadit Syahputra</h1>
-                        <p class="text-slate-500">22 Maret 2021</p>
-                    </div>
-                </p>
-                <p class="mt-2">Ready Stok bang?</p>
-            </div>
+                <div class="border px-4 py-2 rounded-lg mt-4">
+                    <p>
+                        <div class="flex justify-between">
+                            <h1 class="font-semibold">Juliadit Syahputra</h1>
+                            <p class="text-slate-500">22 Maret 2021</p>
+                        </div>
+                    </p>
+                    <p class="mt-2">Ready Stok bang?</p>
+                </div>
+        </section>
         </div>
 
 

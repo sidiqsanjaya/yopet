@@ -1,9 +1,13 @@
 <?php
-
+if(!empty($_SESSION["loggedin"])){
+    header("location: /");
+    die;
+}
+$check1=$check2=$check3=$check4=$check5="";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     //call validate class
     $verify = new verify();
-    $check1=$check2=$check3=$check4=$check5="";
+    
     $checkfullname = $verify->checkfullname($_POST['inputfullname']);
     if($checkfullname == "empty"){
         $check1 = "data kosong"; //harusnya ada warning
@@ -42,6 +46,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     if(empty($check1.$check2.$check3.$check4.$check5)== true){
+        //call class signup
         $createaccount = new signup($_POST['inputfullname'],$_POST['inputusername'],$_POST['inputemail'], $_POST['inputpassword'], $_POST['inputnumber']);
         $createaccount->createaccount();
         sleep(2);
@@ -66,6 +71,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <form action="?page=signup" method= "POST" class="bg-white">
                 <h1 class="text-gray-800 font-bold text-2xl mb-1">Sign up to Yopet.</h1>
                 <p class="text-sm font-normal text-gray-600 mb-7">Already a member? <a class="text-blue-600" href="?page=signin">Log in</a></p>
+                <?php
+                echo $check1.$check2.$check3.$check4.$check5;
+
+                ?>
                 <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
@@ -93,7 +102,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                         d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
                                         clip-rule="evenodd" />
                                 </svg>
-                    <input class="pl-2 outline-none border-none" type="text" name="inputpassword" id="" <?php if(isset($_POST['inputpassword']) == true){echo 'value="'.$_POST['inputpassword'].'"';} ?>placeholder="Password" />
+                    <input class="pl-2 outline-none border-none" type="password" name="inputpassword" id="" <?php if(isset($_POST['inputpassword']) == true){echo 'value="'.$_POST['inputpassword'].'"';} ?>placeholder="Password" />
                 </div>
                 <div class="flex items-center border-2 py-2 px-3 rounded-2xl">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
