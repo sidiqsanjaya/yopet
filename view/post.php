@@ -1,6 +1,9 @@
 <?php
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 phpinfo();
+$verify = new verify();
+$checkimg = $verify->checkimg($_FILES['inputfile']);
+
 }
 
 ?>
@@ -77,7 +80,7 @@ phpinfo();
                         </div>
 
                         <div class="">
-                            <input class="mt-4 border rounded-lg w-full bg-white" name="inputfile[]" type="file" multiple>
+                            <input class="mt-4 border rounded-lg w-full bg-white" name="inputfile[]" type="file" multiple accept="image/*">
                         </div>
                     </div>
 

@@ -1,4 +1,5 @@
 <?php
+//class untuk verifikasi data
 Class verify{
     public function checkfullname($fullname){
         //to do check fullname
@@ -77,6 +78,34 @@ Class verify{
             return "empty";
         }
     }
+
+    public function checktitle($title){
+        if(!trim($title)){
+            return "empty";
+        }
+    }
+
+    public function checkdesc($desc){
+        if(!trim($desc)){
+            return "empty";
+        } 
+    }
+
+    public function checkageweight($angka){
+        if(!trim($angka)){
+            return "empty";
+        }elseif(gettype($angka) == "integer"){
+            return "notinteger";
+        }
+    }
+    public function checkimg($img){
+        $file_type = $_FILES[$img]['type'];
+        $allowed = array("image/jpeg", "image/gif", "image/png");
+        if(!in_array($file_type, $allowed)) {
+            return "only jpeg and png file";
+        }
+    }
+
 }
 
 
