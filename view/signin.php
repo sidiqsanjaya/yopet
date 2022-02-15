@@ -23,7 +23,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($check1.$check2)){
         $login = new signup();
         $logincheck = $login->login($_POST['inputusermail'],$_POST['inputpassword']);
-        //var_dump($logincheck);
         if($logincheck != "failed"){
             //create session
              session_start();
@@ -36,6 +35,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
              $check3 = "redirect in 3 second";
              sleep(3);
              header("location: /");
+        }else{
+            $check3 = "check again you input";
         }
     }
 }

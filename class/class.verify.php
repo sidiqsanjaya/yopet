@@ -98,13 +98,7 @@ Class verify{
             return "notinteger";
         }
     }
-    public function checkimg($img){
-        $file_type = $_FILES[$img]['type'];
-        $allowed = array("image/jpeg", "image/gif", "image/png");
-        if(!in_array($file_type, $allowed)) {
-            return "only jpeg and png file";
-        }
-    }
+    
 
 }
 
