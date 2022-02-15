@@ -1,14 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adopt Pet - Sign in</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="https://cdn2.iconfinder.com/data/icons/charity-31/512/CharityIcons-50-512.png">
-</head>
 
 <body>
     <!-- component -->
@@ -26,7 +15,7 @@
         <div class="flex md:w-1/2 justify-center py-10 items-center bg-white">
             <form class="bg-white">
                 <h1 class="text-gray-800 font-bold text-2xl mb-1">Sign in to Yopet.</h1>
-                <p class="text-sm font-normal text-gray-600 mb-7">Don't have an account? <a class="text-blue-500" href="./signup.html">Register</a></p>
+                <p class="text-sm font-normal text-gray-600 mb-7">Don't have an account? <a class="text-blue-500" href="?page=signup">Register</a></p>
 
                 <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">

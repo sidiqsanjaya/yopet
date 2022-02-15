@@ -5,5 +5,5 @@ include "controler.php";
 
 $ct = new controler();
 
-$ct->geturl(isset($_GET['page']));
+$ct->geturl($_GET['page']);
 ?>
