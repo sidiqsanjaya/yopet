@@ -7,6 +7,7 @@ function dbconnect(){
 //define all class
 include 'class/class.account.php';
 include 'class/class.verify.php';
+include 'class/class.post.php';
 
 Class controler {
     public function geturl($url){
@@ -19,17 +20,16 @@ Class controler {
            require 'view/footer.php';
 
         }elseif($url == 'signin'){
-            require 'view/signin.php';
+            require 'view/signin.php'; //fix
         }elseif($url == 'signup'){
             require 'view/signup.php';
 
         }elseif($url == 'postpet'){
             require 'view/navbar.php';
-            require 'view/post.php';
+            require 'view/post.php'; //fix
         }elseif($url == 'forum'){
             require 'view/navbar.php';
             require 'view/forum.php';
-            require 'view/footer.php';
         }elseif($url == 'logout'){
             require 'logout.php';
         }else{

@@ -98,6 +98,11 @@ Class verify{
             return "notinteger";
         }
     }
+    public function checkgender($gender){
+        if(!trim($gender)){
+            return "empty";
+        }
+    }
     
 
 }
