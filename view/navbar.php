@@ -24,8 +24,8 @@
                           <svg class="w-4 h-4 ml-2 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/> </svg>
                         </button>
                         <ul class="absolute hidden pt-1 text-gray-600 dropdown-menu">
-                            <li class=""><a class="block px-4 py-2 whitespace-no-wrap bg-gray-200 rounded-t hover:bg-red-400" href="?page=profile">Profile</a></li>
-                            <li class=""><a class="block px-4 py-2 whitespace-no-wrap bg-gray-200 hover:bg-gray-400" href="?page=logout">Logout</a></li>
+                            <li class=""><a class="block px-4 py-2 whitespace-no-wrap bg-gray-200 rounded-t hover:bg-blue-500 hover:text-white" href="?page=profile">Profile</a></li>
+                            <li class=""><a class="block px-4 py-2 whitespace-no-wrap bg-gray-200 hover:bg-red-500 hover:text-white" href="?page=logout">Logout</a></li>
                         </ul>
                     </div>
                 </div>

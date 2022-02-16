@@ -30,6 +30,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
              $_SESSION['iduser']   = $logincheck[0];
              $_SESSION['email']    = $logincheck[1];
              $_SESSION['username'] = $logincheck[2];
+             $_SESSION['level']    = $logincheck[3];
              $_SESSION['time_login'] = time();
 
              $check3 = "redirect in 3 second";

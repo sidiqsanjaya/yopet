@@ -29,7 +29,7 @@ Class account{
         $db = dbconnect();
         $md5 = md5($password);
         if ($db->connect_errno == 0) {
-            $sql = "SELECT `user`.`id_user`, `user`.`email`, `user`.`username` FROM `user` WHERE `user`.`email` = '$username' OR `user`.`username` = '$username' AND `user`.`password` = '$md5'";           
+            $sql = "SELECT `user`.`id_user`, `user`.`email`, `user`.`username`, `user`.`level` FROM `user` WHERE `user`.`email` = '$username' OR `user`.`username` = '$username' AND `user`.`password` = '$md5'";           
             $res = $db->query($sql);
             if(mysqli_num_rows($res)==1){
                 $data = $res->fetch_array();

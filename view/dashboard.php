@@ -1,10 +1,22 @@
+<?php
+if(!empty($_SESSION["loggedin"])){
+    if(isset($_GET['delete'])){
+        $removepost = $_GET['delete'];
+        $post = new post();
+        //init check its have or no
+        $cek = $post->remove($removepost,$_SESSION['iduser'],$_SESSION['username'],$_SESSION['level']);
+        if($cek=="oke"){
+            sleep(2);
+            header("location: /");
+        }elseif($cek=="gagal"){
+            header("location: /");
+        }
+    }
 
-
+}
+?>
         <!-- header -->
-        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-
         <div class="bg-white">
-
             <main class="my-4">
                 <div class="container mx-auto">
                     <div class="md:flex mt-8 md:-mx-4">
@@ -37,33 +49,66 @@
             </div>
 
 
-
             <!-- Pet Available -->
             <div class="mt-12">
                 <div class="">
                     <div class="flex justify-between">
                         <h1 class="text-xl font-semibold md:text-2xl">Pets Available for Adoption</h1>
-                        <a class="text-slate-400 hover:text-blue-500" href="#">See more</a>
                     </div>
                     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                         <!-- items 1 -->
-
-                        <div class="max-w-full bg-white shadow-lg rounded-lg overflow-hidden my-4">
-                            <a href="adekurniawan.html">
-                                <img class="w-full h-56 object-cover object-center" src="availablepet/persian-cat.jpg" alt="avatar">
-                                <div class="flex items-center px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 justify-between">
-                                    <h1 class="text-white font-semibold">Cat <span> : </span> <span>Persian</span></h1>
-                                    <a class="text-white tracking-wide hover:text-blue-300" href="#">Detail</a>
+                        <?php
+                        $db = dbconnect();
+                        $post = new post();
+                        $verify = new verify();
+                        $page = isset($_GET['ipage'])? (int)$_GET["ipage"]:1;
+                        $limit = 10;
+                        $start = ($page>1) ? ($page * $limit) - $limit : 0;
+                        $sql = $db->query("SELECT `post_adopt`.*
+                        FROM `post_adopt`");
+                        $total = mysqli_num_rows($sql);
+                        $pages = ceil($total/$limit);
+                        
+                        
+                        $data = $post->dashboard($start,$limit);
+                        foreach ($data as $datas) {
+                            $img  = $post->dashimg($datas['id_post_adopt']);
+                        ?>
+                        <!-- //mulai sini -->
+                        <div class="max-w-full my-4 overflow-hidden bg-white rounded-lg shadow-lg">
+                            <a href="?adopt_details=<?php echo $datas['id_post_adopt']; ?>">
+                                <img class="object-cover object-center w-full h-56" src="<?php echo $img[0]; ?>" alt="avatar">
+                                <div class="flex items-center justify-between px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500">
+                                    <h1 class="font-semibold text-white"><span><?php echo $datas['title_post_adopt']; ?> </span></h1>
+                                    <!-- aaaa -->
+                                    <?php if($_SESSION['level'] == "admin" OR $_SESSION['iduser']== $datas['id_user']){
+                                     ?>
+                                    <div class="flex md:order-2">
+                                            <div class="relative inline-block dropdown">
+                                                
+                                                <button class="inline-flex items-center px-4 py-2 font-semibold text-gray-700 bg-gray-300 rounded">
+                                                  <span class="mr-1"></span>
+                                                  <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/> </svg>
+                                                </button>
+                                                <ul class="absolute hidden pt-1 text-gray-600 dropdown-menu">
+                                                    <li class=""><a class="block px-4 py-2 whitespace-no-wrap bg-gray-200 hover:bg-red-500 hover:text-white" href="?delete=<?php echo $datas['id_post_adopt']; ?> ">Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!-- aaaaa -->
+                                    <?php } ?>
                                 </div>
-                                <div class="py-4 px-6">
-                                    <h1 class="text-2xl font-semibold text-gray-800">Ade Kurniawan</h1>
-                                    <ul class="py-2 text-sm text-gray-700 list-disc list-inside flex gap-4">
-                                        <li>18 Month</li>
-                                        <li>Male</li>
-                                        <li>2.8 Kg</li>
+                                <div class="px-6 py-4">
+                                    <div class="flex items-center justify-between">            
+                                        
+                                    </div>
+                                    <ul class="flex gap-4 py-2 text-sm text-gray-700 list-disc list-inside">
+                                        <li><?php echo $datas['animal_age']; ?> Month</li>
+                                        <li><?php echo $datas['animal_gender'];?></li>
+                                        <li><?php echo $datas['animal_size'];?> Kg</li>
                                     </ul>
                                     <div class="flex items-center mt-2 text-gray-700">
-                                        <svg class="h-6 w-6 fill-current" viewBox="0 0 512 512">
+                                        <svg class="w-6 h-6 fill-current" viewBox="0 0 512 512">
                                         <path d="M256 32c-88.004 0-160 70.557-160 156.801C96 306.4 256 480 256 480s160-173.6 160-291.199C416 102.557 344.004 32 256 32zm0 212.801c-31.996 0-57.144-24.645-57.144-56 0-31.357 25.147-56 57.144-56s57.144 24.643 57.144 56c0 31.355-25.148 56-57.144 56z"/>
                                     </svg>
                                         <h1 class="px-2 text-sm">Bandung, Indonesia</h1>
@@ -71,137 +116,25 @@
                                 </div>
                             </a>
                         </div>
-                        <!-- items 2 -->
-                        <div class="max-w-full bg-white shadow-lg rounded-lg overflow-hidden my-4">
-                            <a href="/juliadit">
-                                <img class="w-full h-56 object-cover object-center" src="availablepet/mainecoon.jpg" alt="avatar">
-                                <div class="flex items-center px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 justify-between">
-                                    <h1 class="text-white font-semibold">Cat <span> : </span><span>Maine Coon</span></h1>
-                                    <a class="text-white tracking-wide hover:text-blue-300" href="#">Detail</a>
-                                </div>
-                                <div class="py-4 px-6">
-                                    <h1 class="text-2xl font-semibold text-gray-800">Juliadit Syahputra</h1>
-                                    <ul class="py-2 text-sm text-gray-700 list-disc list-inside flex gap-4">
-                                        <li>18 Month</li>
-                                        <li>Male</li>
-                                        <li>3.4 Kg</li>
-                                    </ul>
-                                    <div class="flex items-center mt-2 text-gray-700">
-                                        <svg class="h-6 w-6 fill-current" viewBox="0 0 512 512">
-                                        <path d="M256 32c-88.004 0-160 70.557-160 156.801C96 306.4 256 480 256 480s160-173.6 160-291.199C416 102.557 344.004 32 256 32zm0 212.801c-31.996 0-57.144-24.645-57.144-56 0-31.357 25.147-56 57.144-56s57.144 24.643 57.144 56c0 31.355-25.148 56-57.144 56z"/>
-                                    </svg>
-                                        <h1 class="px-2 text-sm">Bandung, Indonesia</h1>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <!-- items 3 -->
-                        <div class="max-w-full bg-white shadow-lg rounded-lg overflow-hidden my-4">
-                            <a href="/rafy">
-                                <img class="w-full h-56 object-cover object-center" src="availablepet/hushki.jpg" alt="avatar">
-                                <div class="flex items-center px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 justify-between">
-                                    <h1 class="text-white font-semibold">Dog <span> : </span> <span>Siberian Husky</span></h1>
-                                    <a class="text-white tracking-wide hover:text-blue-300" href="#">Detail</a>
-                                </div>
-                                <div class="py-4 px-6">
-                                    <h1 class="text-2xl font-semibold text-gray-800">Rafy Ardhanie</h1>
-                                    <ul class="py-2 text-sm text-gray-700 list-disc list-inside flex gap-4">
-                                        <li>18 Month</li>
-                                        <li>Male</li>
-                                        <li>6 Kg</li>
-                                    </ul>
-                                    <div class="flex items-center mt-2 text-gray-700">
-                                        <svg class="h-6 w-6 fill-current" viewBox="0 0 512 512">
-                                        <path d="M256 32c-88.004 0-160 70.557-160 156.801C96 306.4 256 480 256 480s160-173.6 160-291.199C416 102.557 344.004 32 256 32zm0 212.801c-31.996 0-57.144-24.645-57.144-56 0-31.357 25.147-56 57.144-56s57.144 24.643 57.144 56c0 31.355-25.148 56-57.144 56z"/>
-                                    </svg>
-                                        <h1 class="px-2 text-sm">Bandung, Indonesia</h1>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                        <!-- //berhenti sini -->
+                        <?php } ?>
                     </div>
-                    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-                        <!-- items 1 -->
 
-                        <div class="max-w-full bg-white shadow-lg rounded-lg overflow-hidden my-4">
-                            <a href="adekurniawan.html">
-                                <img class="w-full h-56 object-cover object-center" src="availablepet/persian-cat.jpg" alt="avatar">
-                                <div class="flex items-center px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 justify-between">
-                                    <h1 class="text-white font-semibold">Cat <span> : </span> <span>Persian</span></h1>
-                                    <a class="text-white tracking-wide hover:text-blue-300" href="#">Detail</a>
-                                </div>
-                                <div class="py-4 px-6">
-                                    <h1 class="text-2xl font-semibold text-gray-800">Ade Kurniawan</h1>
-                                    <ul class="py-2 text-sm text-gray-700 list-disc list-inside flex gap-4">
-                                        <li>18 Month</li>
-                                        <li>Male</li>
-                                        <li>2.8 Kg</li>
-                                    </ul>
-                                    <div class="flex items-center mt-2 text-gray-700">
-                                        <svg class="h-6 w-6 fill-current" viewBox="0 0 512 512">
-                                        <path d="M256 32c-88.004 0-160 70.557-160 156.801C96 306.4 256 480 256 480s160-173.6 160-291.199C416 102.557 344.004 32 256 32zm0 212.801c-31.996 0-57.144-24.645-57.144-56 0-31.357 25.147-56 57.144-56s57.144 24.643 57.144 56c0 31.355-25.148 56-57.144 56z"/>
-                                    </svg>
-                                        <h1 class="px-2 text-sm">Bandung, Indonesia</h1>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <!-- items 2 -->
-                        <div class="max-w-full bg-white shadow-lg rounded-lg overflow-hidden my-4">
-                            <a href="/juliadit">
-                                <img class="w-full h-56 object-cover object-center" src="availablepet/mainecoon.jpg" alt="avatar">
-                                <div class="flex items-center px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 justify-between">
-                                    <h1 class="text-white font-semibold">Cat <span> : </span><span>Maine Coon</span></h1>
-                                    <a class="text-white tracking-wide hover:text-blue-300" href="#">Detail</a>
-                                </div>
-                                <div class="py-4 px-6">
-                                    <h1 class="text-2xl font-semibold text-gray-800">Juliadit Syahputra</h1>
-                                    <ul class="py-2 text-sm text-gray-700 list-disc list-inside flex gap-4">
-                                        <li>18 Month</li>
-                                        <li>Male</li>
-                                        <li>3.4 Kg</li>
-                                    </ul>
-                                    <div class="flex items-center mt-2 text-gray-700">
-                                        <svg class="h-6 w-6 fill-current" viewBox="0 0 512 512">
-                                        <path d="M256 32c-88.004 0-160 70.557-160 156.801C96 306.4 256 480 256 480s160-173.6 160-291.199C416 102.557 344.004 32 256 32zm0 212.801c-31.996 0-57.144-24.645-57.144-56 0-31.357 25.147-56 57.144-56s57.144 24.643 57.144 56c0 31.355-25.148 56-57.144 56z"/>
-                                    </svg>
-                                        <h1 class="px-2 text-sm">Bandung, Indonesia</h1>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <!-- items 3 -->
-                        <div class="max-w-full bg-white shadow-lg rounded-lg overflow-hidden my-4">
-                            <a href="/rafy">
-                                <img class="w-full h-56 object-cover object-center" src="availablepet/hushki.jpg" alt="avatar">
-                                <div class="flex items-center px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 justify-between">
-                                    <h1 class="text-white font-semibold">Dog <span> : </span> <span>Siberian Husky</span></h1>
-                                    <a class="text-white tracking-wide hover:text-blue-300" href="#">Detail</a>
-                                </div>
-                                <div class="py-4 px-6">
-                                    <h1 class="text-2xl font-semibold text-gray-800">Rafy Ardhanie</h1>
-                                    <ul class="py-2 text-sm text-gray-700 list-disc list-inside flex gap-4">
-                                        <li>18 Month</li>
-                                        <li>Male</li>
-                                        <li>6 Kg</li>
-                                    </ul>
-                                    <div class="flex items-center mt-2 text-gray-700">
-                                        <svg class="h-6 w-6 fill-current" viewBox="0 0 512 512">
-                                        <path d="M256 32c-88.004 0-160 70.557-160 156.801C96 306.4 256 480 256 480s160-173.6 160-291.199C416 102.557 344.004 32 256 32zm0 212.801c-31.996 0-57.144-24.645-57.144-56 0-31.357 25.147-56 57.144-56s57.144 24.643 57.144 56c0 31.355-25.148 56-57.144 56z"/>
-                                    </svg>
-                                        <h1 class="px-2 text-sm">Bandung, Indonesia</h1>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </div>
 
             <!-- See more button -->
-            <button class="flex mx-auto border border-gray-300 text-gray-400 hover:border-blue-600 hover:text-blue-600  py-2 px-8 rounded-lg my-4">
-                See more
-            </button>
+            
+            <ul class="mb-6 mt-4 flex justify-center mx-auto my-8">
+                <?php 
+                    for ($i=1; $i<=$pages ; $i++){
+                ?>
+                <li class="px-3 py-2 mx-1 text-gray-700 rounded-lg <?php if($page==$i) echo "bg-gradient-to-r from-cyan-500 to-blue-500"; echo "bg-gray-200 rounded-lg hover:bg-gray-700"; ?>  hover:text-gray-200 ">
+                    <a class="" href="?ipage=<?php echo $i; ?>"><?php echo $i; ?></a>
+                </li>
+                <?php } ?>
+            </ul>
+
 
 
 

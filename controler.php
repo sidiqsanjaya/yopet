@@ -33,7 +33,9 @@ Class controler {
         }elseif($url == 'logout'){
             require 'logout.php';
         }else{
+            require 'view/navbar.php';
             require 'view/dashboard.php';
+            require 'view/footer.php';
         }
     }
 }
