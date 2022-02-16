@@ -76,7 +76,7 @@ if(!empty($_SESSION["loggedin"])){
                         ?>
                         <!-- //mulai sini -->
                         <div class="max-w-full my-4 overflow-hidden bg-white rounded-lg shadow-lg">
-                            <a href="?adopt_details=<?php echo $datas['id_post_adopt']; ?>">
+                            <a href="?page=adopt-details&adopt-post<?php echo $datas['id_post_adopt']; ?>">
                                 <img class="object-cover object-center w-full h-56" src="<?php echo $img[0]; ?>" alt="avatar">
                                 <div class="flex items-center justify-between px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500">
                                     <h1 class="font-semibold text-white"><span><?php echo $datas['title_post_adopt']; ?> </span></h1>

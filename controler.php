@@ -16,17 +16,24 @@ Class controler {
         echo($url);
         if($url == ''){
            require 'view/navbar.php';
-           require 'view/dashboard.php';
+           require 'view/dashboard.php'; //fix
            require 'view/footer.php';
+
 
         }elseif($url == 'signin'){
             require 'view/signin.php'; //fix
         }elseif($url == 'signup'){
             require 'view/signup.php';
 
+
         }elseif($url == 'postpet'){
             require 'view/navbar.php';
             require 'view/post.php'; //fix
+        }elseif($url == 'adopt-details'){
+            require 'view/navbar.php';
+            require 'view/adopt.php';
+
+
         }elseif($url == 'forum'){
             require 'view/navbar.php';
             require 'view/forum.php';
@@ -34,7 +41,7 @@ Class controler {
             require 'logout.php';
         }else{
             require 'view/navbar.php';
-            require 'view/dashboard.php';
+            require 'view/dashboard.php'; //fix
             require 'view/footer.php';
         }
     }

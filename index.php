@@ -1,7 +1,7 @@
 <?php
 session_start();
 ob_start();
-error_reporting(0);
+//error_reporting(0);
 include "controler.php";
 
 $ct = new controler();
