@@ -19,7 +19,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $checkpassword = $verify->checkpassword($_POST['inputpassword']) ;
     if($checkpassword == "empty"){
-        $check2 = "data kosong"; //harusnya ada warning
+        $check2 = "data cannot be empty"; //harusnya ada warning
     }elseif($checkpassword == "notenough"){
         $check2 = "password kurang 8 angka";
     }

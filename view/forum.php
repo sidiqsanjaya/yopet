@@ -2,10 +2,20 @@
 if(!defined('MyConst')) {
     die('Direct access not permitted');
 }
+$post = new post();
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    if(empty($_SESSION['loggedin'])){
+        header("location: ?page=signin");
+    }else{
+        $aaa = $post->savecommentpost(htmlspecialchars($_SESSION['iduser']),htmlspecialchars($_GET['adopt-post']),htmlspecialchars(htmlspecialchars($_POST['comment'])));
+        
+    }
+}
 
 ?>
         <section>
-            <form action="?page=forum" method=></form>
+            <form action="?page=forum" method="POST">
             <div class="WriteForum">
                 <textarea class="border-transparent focus:border-blueGray-500 px-4 py-2.5 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400 w-full bg-gray-200 mt-4 rounded-lg ease-in-out placeholder-gray-600"
                     name="comment" id="desc" cols="32" rows="3" placeholder="Write a Forum"></textarea>
@@ -17,6 +27,7 @@ if(!defined('MyConst')) {
                     </div>
                 </div>
             </div>
+            </form>
             <div class="border-t mt-2"></div>
 
 
