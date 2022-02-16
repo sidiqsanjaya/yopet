@@ -1,4 +1,5 @@
 <?php
+define('MyConst', TRUE);
 session_start();
 ob_start();
 //error_reporting(0);

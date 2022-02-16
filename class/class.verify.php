@@ -1,4 +1,7 @@
 <?php
+if(!defined('MyConst')) {
+    die('Direct access not permitted');
+ }
 //class untuk verifikasi data
 Class verify{
     public function checkfullname($fullname){

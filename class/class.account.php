@@ -1,4 +1,7 @@
 <?php
+if(!defined('MyConst')) {
+    die('Direct access not permitted');
+ }
 Class account{
     public $fullname;
     public $username;

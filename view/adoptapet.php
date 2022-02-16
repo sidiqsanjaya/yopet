@@ -18,42 +18,9 @@ if(!empty($_SESSION["loggedin"])){
     }
 }
 ?>
-        <!-- header -->
-        <div class="bg-white">
-            <main class="my-4">
-                <div class="container mx-auto">
-                    <div class="md:flex mt-8 md:-mx-4">
-                        <div class="w-full h-64 md:mx-4 rounded-md overflow-hidden bg-cover bg-center md:w-1/2" style="background-image: url('/view/images/cat.jpg')">
-                            <div class="bg-gray-900 bg-opacity-50 flex items-center h-full">
-                                <div class="px-10 max-w-xl">
-                                    <h2 class="text-2xl text-white font-semibold">Adopt a pet</h2>
-                                    <p class="mt-2 text-gray-400"></p>
-                                    <a href="?page=more-adopt" class="flex items-center mt-4 text-white text-sm uppercase font-semibold rounded hover:underline focus:outline-none">
-                                        <span>Adopt Now</span>
-                                        <svg class="h-5 w-5 mx-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full h-64 mt-8 md:mx-4 rounded-md overflow-hidden bg-cover bg-center md:mt-0 md:w-1/2" style="background-image: url('/view/images/rabbit.jpg')">
-                            <div class="bg-gray-900 bg-opacity-50 flex items-center h-full">
-                                <div class="px-10 max-w-xl">
-                                    <h2 class="text-2xl text-white font-semibold">Post a pet</h2>
-                                    <p class="mt-2 text-gray-400"></p>
-                                    <a href="?page=postpet" class="flex items-center mt-4 text-white text-sm uppercase font-medium rounded hover:underline focus:outline-none">
-                                        <span>Post Now</span>
-                                        <svg class="h-5 w-5 mx-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            </main>
-            </div>
 
-
-            <!-- Pet Available -->
-            <div class="mt-12">
+<!-- Pet Available -->
+<div class="mt-12">
                 <div class="">
                     <div class="flex justify-between">
                         <h1 class="text-xl font-semibold md:text-2xl">Pets Available for Adoption</h1>
@@ -128,14 +95,7 @@ if(!empty($_SESSION["loggedin"])){
                     for ($i=1; $i<=$pages ; $i++){
                 ?>
                 <li class="px-3 py-2 mx-1 text-gray-700 rounded-lg <?php if($page==$i) echo "bg-gradient-to-r from-cyan-500 to-blue-500"; echo "bg-gray-200 rounded-lg hover:bg-gray-700"; ?>  hover:text-gray-200 ">
-                    <a class="" href="?ipage=<?php echo $i; ?>"><?php echo $i; ?></a>
+                    <a class="" href="?page=more-adopt&ipage=<?php echo $i; ?>"><?php echo $i; ?></a>
                 </li>
                 <?php } ?>
             </ul>
-
-
-
-
-        </div>
-
-        

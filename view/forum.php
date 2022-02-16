@@ -1,12 +1,17 @@
+<?php
+if(!defined('MyConst')) {
+    die('Direct access not permitted');
+}
 
+?>
         <section>
+            <form action="?page=forum" method=></form>
             <div class="WriteForum">
                 <textarea class="border-transparent focus:border-blueGray-500 px-4 py-2.5 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400 w-full bg-gray-200 mt-4 rounded-lg ease-in-out placeholder-gray-600"
-                    name="desc" id="desc" cols="32" rows="3" placeholder="Write a Forum"></textarea>
+                    name="comment" id="desc" cols="32" rows="3" placeholder="Write a Forum"></textarea>
                 <div class="flex flex-row-reverse p-3">
                     <div class="flex-initial pl-3">
-                        <button type="button" class="flex items-center px-5 py-2.5 font-medium tracking-wide text-white capitalize   bg-gradient-to-r from-cyan-500 to-blue-500 rounded-md hover:bg-gray-800  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out">
-                             
+                        <button type="submit" class="flex items-center px-5 py-2.5 font-medium tracking-wide text-white capitalize   bg-gradient-to-r from-cyan-500 to-blue-500 rounded-md hover:bg-gray-800  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"> 
                              <span class="mx-1">Submit</span>
                           </button>
                     </div>

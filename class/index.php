@@ -1,7 +1,5 @@
 <?php
-if($_SERVER["DOCUMENT_ROOT"]){
-    
+if(!defined('MyConst')) {
+   die('Direct access not permitted');
 }
-
-phpinfo();
 ?>

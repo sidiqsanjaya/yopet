@@ -33,10 +33,10 @@
                 <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
                     <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
                         <li>
-                            <a href="index.html" class="block py-2 pl-3 pr-4 font-semibold text-gray-400 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">Home</a>
+                            <a href="/" class="block py-2 pl-3 pr-4 font-semibold text-gray-400 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">Home</a>
                         </li>
                         <li>
-                            <a href="forum.html" class="block py-2 pl-3 pr-4 font-semibold text-gray-400 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">Forum</a>
+                            <a href="?page=forum" class="block py-2 pl-3 pr-4 font-semibold text-gray-400 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">Forum</a>
                         </li>
                         <li>
                             <a href="#" class="block py-2 pl-3 pr-4 font-semibold text-gray-400 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">About us</a>

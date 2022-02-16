@@ -1,4 +1,8 @@
 <?php
+if(!defined('MyConst')) {
+    die('Direct access not permitted');
+ }
+ 
 if(!empty($_SESSION["loggedin"])){
     header("location: /");
     die;
