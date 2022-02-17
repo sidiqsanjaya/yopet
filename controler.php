@@ -39,7 +39,7 @@ Class controler {
             require 'view/navbar.php';
             require 'view/adopt.php'; //fix
             require 'view/footer.php';
-            
+
         }elseif($url == 'more-adopt'){
             require 'view/navbar.php';
             require 'view/search.php';
@@ -47,10 +47,15 @@ Class controler {
             require 'view/footer.php';
 
 
+        }elseif($url == 'profile'){
+            require 'view/navbar.php';
+            require 'view/profile.php';
+
+
         }elseif($url == 'forum'){
             require 'view/navbar.php';
             require 'view/search.php';
-            require 'view/forum.php';
+            require 'view/forum.php'; //fix
             require 'view/footer.php';
 
         }elseif($url == 'logout'){

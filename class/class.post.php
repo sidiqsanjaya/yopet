@@ -144,6 +144,28 @@ Class post{
         }
     }
 
+    public function deletecompot($idpost,$iduser,$idusername,$level,$idcomment){
+        $db = dbconnect();
+        if ($db->connect_errno == 0) {
+            if($level=="admin"){
+                $sql = "SELECT `comment`.`id_comment`
+                FROM `comment`
+                WHERE `comment`.`id_comment` = '$idcomment'";
+            }elseif($level=="user"){
+                $sql = "SELECT `comment`.`id_comment`, `post_adopt`.`id_post_adopt`, `user`.`id_user`, `user`.`username` FROM `comment` LEFT JOIN `post_adopt` ON `comment`.`id_post_adopt` = `post_adopt`.`id_post_adopt` LEFT JOIN `user` ON `comment`.`id_user` = `user`.`id_user` WHERE `user`.`id_user` = $iduser AND `user`.`username` = '$idusername' AND `post_adopt`.`id_post_adopt` = '$idpost' AND `comment`.`id_comment` = '$idcomment'";
+            }
+            $res = $db->query($sql);
+            if(mysqli_num_rows($res)>0) {
+                $sqlremovecom = "DELETE FROM `comment` WHERE `comment`.`id_comment` = $idcomment";                
+                $db->query($sqlremovecom);
+                return "oke";
+            } else
+                return "gagal";
+        }else{
+            return false;
+        }
+    }
+
     public function adoptdetail($idpost){
         $db = dbconnect();
         if ($db->connect_errno == 0) {
@@ -181,7 +203,7 @@ Class post{
     public function loadcommentpost($idpost){
         $db = dbconnect();
         if ($db->connect_errno == 0) {
-            $sql = "SELECT `comment`.`content_comment` ,`comment`.`date_comment`, `user`.`fullname`,`user`.`id_user` FROM `post_adopt` LEFT JOIN `comment` ON `comment`.`id_post_adopt` = `post_adopt`.`id_post_adopt` LEFT JOIN `user` ON `comment`.`id_user` = `user`.`id_user` WHERE `post_adopt`.`id_post_adopt` = '$idpost' ORDER BY `comment`.`id_comment` DESC LIMIT 10";
+            $sql = "SELECT `comment`.`content_comment`,`comment`.`id_comment` ,`comment`.`date_comment`, `user`.`fullname`,`user`.`id_user` FROM `post_adopt` LEFT JOIN `comment` ON `comment`.`id_post_adopt` = `post_adopt`.`id_post_adopt` LEFT JOIN `user` ON `comment`.`id_user` = `user`.`id_user` WHERE `post_adopt`.`id_post_adopt` = '$idpost' ORDER BY `comment`.`id_comment` DESC LIMIT 10";
             $res = $db->query($sql);            
                 if ($res) {               
                     $data = $res->fetch_all(MYSQLI_ASSOC);
@@ -299,6 +321,41 @@ Class post{
                 return "oke";
             } else
                 return "gagal";
+        }else{
+            return false;
+        }
+    }
+
+    public function profilepost($iduser){
+        $db = dbconnect();
+        if ($db->connect_errno == 0) {
+            $sql = "SELECT `user`.`id_user`, `post_adopt`.* FROM `user` LEFT JOIN `post_adopt` ON `post_adopt`.`id_user` = `user`.`id_user` WHERE `user`.`id_user` = $iduser";  
+                                
+            $res = $db->query($sql);
+            if(mysqli_num_rows($res)>0){
+                $data = $res->fetch_all(MYSQLI_ASSOC);
+                $res->free();
+                return $data;                  
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+    
+    public function profileforum($iduser){
+        $db = dbconnect();
+        if ($db->connect_errno == 0) {
+            $sql = "SELECT `user`.`id_user`, `forum`.* FROM `user` LEFT JOIN `forum` ON `forum`.`id_user` = `user`.`id_user` WHERE `user`.`id_user` = $iduser";           
+            $res = $db->query($sql);
+            if(mysqli_num_rows($res)>1){
+                $data = $res->fetch_all(MYSQLI_ASSOC);
+                $res->free();
+                return $data;                  
+            }else{
+                return false;
+            }
         }else{
             return false;
         }

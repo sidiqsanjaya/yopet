@@ -47,6 +47,24 @@ Class account{
             return false;
         }
     }
+
+    public function profile($iduser,$idusername,$session){
+        $db = dbconnect();
+        if ($db->connect_errno == 0) {
+            $sql = "SELECT `user`.`fullname`,`user`.`number_phone`,`user`.`city`, (SELECT COUNT(*) FROM forum WHERE `forum`.`id_user` = `user`.`id_user`) AS jforum, (SELECT COUNT(*) FROM post_adopt WHERE `post_adopt`.`id_user` = `user`.`id_user`) AS jpost FROM `user` WHERE `user`.`id_user` = $iduser AND `user`.`username` = '$idusername' AND `user`.`email` = '$session'";           
+            $res = $db->query($sql);
+            if(mysqli_num_rows($res)==1){
+                $data = $res->fetch_array();
+                $res->free();
+                return $data;                  
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+
 }
 class signup extends account {
     public function createaccount(){
