@@ -4,53 +4,71 @@ if(!defined('MyConst')) {
  }
  
 if(empty($_SESSION["loggedin"])){
-    header("location: /");
+    header("location: /?page=signin");
     die;
 }
-$check1=$check2=$check3=$check4=$check5="";
+$check1=$check2=$check3=$check4=$check5=$check8="";
 $info = "";
+$category = new post();
+$categor = $category->category();
+$ex = explode(",", str_replace("'", "", substr($categor[0]["column_type"], 5, (strlen($categor[0]["column_type"])-6))));
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     //phpinfo();
     $verify = new verify();
     //call session and idpost
     $iduser = $_SESSION['iduser'];
     $idpost = substr(md5(time()), 0, 7);
+
     $check1 = $verify->checktitle($_POST['inputtitle']); 
     $check2 = $verify->checkdesc($_POST['inputdesc']);
     $check3 = $verify->checkageweight($_POST['inputage']);
     $check4 = $verify->checkageweight($_POST['inputweight']);
     $check5 = $verify->checkgender($_POST['gender']);
-
-    if(empty($check1.$check2.$check3.$check4.$check5) == true){
-        
-        $post = new forumpost($iduser,$idpost,htmlspecialchars($_POST['inputtitle']),htmlspecialchars($_POST['inputdesc']),htmlspecialchars($_POST['inputage']),htmlspecialchars($_POST['inputweight']),htmlspecialchars($_POST['gender']));
-        $post->createapost();
-
-        $upload = new post();
+    $check8 = $verify->checkcategory($_POST['category']);
+    if(empty($check1.$check2.$check3.$check4.$check5.$check8) == true){
+        $failimg = 0;
+        $failtype= 0;
         $countimg = count($_FILES['inputfile']['name']); 
-        $no   = 0;
-        $true = 0;
-        for($i=0;$i<$countimg;$i++){
-            $no   = $no + 1;
-            $filename = 'view/img/'.$idpost.$_FILES['inputfile']['name'][$i];
-            $a = $upload->uploadimg($idpost,$filename);
-            $true = $true + $a;
-            move_uploaded_file($_FILES['inputfile']['tmp_name'][$i],$filename);
-            if($countimg == $no){
-                if($true == $countimg){
-                    $info = "Post successfully entered, will be moved to dashboard";
-                    sleep(3);
-                    header("location: /");
-                }else{
-                    $info = "post failed to enter, try again";
-                    if($countimg == $no){
-                        for($a=0;$a<$countimg;$a++){
-                            $fileimg = 'view/img/'.$idpost.$_FILES['inputfile']['name'][$a];
-                            unlink($fileimg);
+        for($x=0;$x<$countimg;$x++){
+            $check6 = $verify->checktype($_FILES['inputfile']['name'][$x]);
+            $failtype = $failtype + $check6;
+            
+            $check7 = $verify->checksizeimg($_FILES['inputfile']['size'][$x]);
+            $failimg = $failimg + $check7;
+        }
+        if($failimg == 0 && $failtype == 0){
+            $post = new forumpost($iduser,$idpost,htmlspecialchars($_POST['inputtitle']),htmlspecialchars($_POST['inputdesc']),htmlspecialchars($_POST['inputage']),htmlspecialchars($_POST['inputweight']),htmlspecialchars($_POST['gender']),htmlspecialchars($_POST['category']));
+            $post->createapost();
+
+            $upload = new post();
+            
+            $no   = 0;
+            $true = 0;
+            for($i=0;$i<$countimg;$i++){
+                $no   = $no + 1;
+                $filename = 'view/img/'.$idpost.$_FILES['inputfile']['name'][$i];
+                $a = $upload->uploadimg($idpost,$filename);
+                $true = $true + $a;
+                move_uploaded_file($_FILES['inputfile']['tmp_name'][$i],$filename);
+                if($countimg == $no){
+                    if($true == $countimg){
+                        $info = "Post successfully entered, will be moved to dashboard";
+                        sleep(3);
+                        header("location: /");
+                    }else{
+                        $info = "post failed to enter, try again";
+                        if($countimg == $no){
+                            for($a=0;$a<$countimg;$a++){
+                                $fileimg = 'view/img/'.$idpost.$_FILES['inputfile']['name'][$a];
+                                unlink($fileimg);
+                            }
                         }
                     }
                 }
             }
+        }else{
+            $info = "make sure the uploaded image file is in the form of jpg, jpeg, png and the size is under 5MB";
         }
     }
 }
@@ -59,6 +77,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <div class="mt-5 bg-white rounded-lg shadow border">
             <div class="mt-12">
                 <div class="">
+                <?php
+                    if(empty($check1.$check2.$check3.$check4.$check5) == false){ ?>
+                    <!-- Error handling  -->
+                    <div class="px-5">
+                            <h1 class="text-center bg-red-600 py-2 text-white rounded-lg">Please fill all required fields.</h1>
+                        </div>
+                        <!-- End Error Handling -->
+                    <?php } ?>
                 <form action='?page=postpet' method='POST' enctype='multipart/form-data'>
                     <div class="flex">
                         <div class="flex-1 py-5 pl-5 overflow-hidden">
@@ -91,15 +117,26 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         </div>
 
                         <div class="">
-                            <input class="mt-4 border rounded-lg w-full bg-white" name="inputfile[]" type="file" multiple accept="image/*" required>
+                            <input class="mt-4 border rounded-lg w-full bg-white" name="inputfile[]" type="file" multiple  accept="image/png, image/jpeg" required>
                         </div>
+                        <!-- Category -->
+                        <div class="w-full mt-4 rounded-xl mb-6 md:mb-0">
+                            <div class="relative">
+                                <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" name="category" required>
+                                <option <?php if(isset($_POST['category']) AND $_POST['category']==""){?> selected="selected" <?php } ?> value="">Category</option>
+                                <?php foreach($ex as $dataca){ ?>
+                                    <option <?php if(isset($_POST['category']) AND $_POST['category']=="$dataca"){?> selected="selected" <?php } ?> value="<?php echo $dataca; ?>"> <?php echo $dataca; ?></option>
+                                <?php } ?>
+                              </select>
+                            </div>
+                        </div>
+                        <!-- end category -->
                     </div>
-                    <?php
-                    if(empty($check1.$check2.$check3.$check4.$check5) == false){
-                        echo "please check the data entered again"; //info error
-                    }
-                    echo $info; //menunjukan info jika sudah berhasil
-                    ?>
+                    <div class="flex justify-end mt-2">
+                            <p class="text-red-600"><?php echo $info;
+                    ?></p>
+                        </div>
+                    
                     <div class="px-5 ">
                     </div>
                     <hr class="mt-4">

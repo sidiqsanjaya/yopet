@@ -17,6 +17,7 @@ if(!empty($_SESSION["loggedin"])){
         }
     }
 }
+
 ?>
 
 <!-- Pet Available -->
@@ -39,8 +40,11 @@ if(!empty($_SESSION["loggedin"])){
                         $total = mysqli_num_rows($sql);
                         $pages = ceil($total/$limit);
                         
-                        
-                        $data = $post->dashboard($start,$limit);
+                        if(isset($_POST['search'])){
+                        $data = $post->dashboard(0,20,"search", $_POST['search'], $_POST['category']);
+                        }else{
+                            $data = $post->dashboard($start,$limit,"full",NULL,NULL);
+                        }
                         foreach ($data as $datas) {
                             $img  = $post->dashimg($datas['id_post_adopt']);
                         ?>
@@ -49,7 +53,7 @@ if(!empty($_SESSION["loggedin"])){
                             <a href="?page=adopt-details&adopt-post=<?php echo htmlspecialchars($datas['id_post_adopt']); ?>">
                                 <img class="object-cover object-center w-full h-56" src="<?php echo htmlspecialchars($img[0]); ?>" alt="avatar">
                                 <div class="flex items-center justify-between px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500">
-                                    <h1 class="font-semibold text-white"><span><?php echo htmlspecialchars($datas['title_post_adopt']); ?> </span></h1>
+                                <h1 class="font-semibold text-white"><?php echo htmlspecialchars($datas['category_animal']); ?> <span> : <span><?php echo htmlspecialchars($datas['title_post_adopt']); ?> </span></h1>
                                     <!-- aaaa -->
                                     <?php if(!empty($_SESSION['loggedin'])){if($_SESSION['level'] == "admin" OR $_SESSION['iduser']== $datas['id_user']){
                                      ?>
@@ -77,7 +81,12 @@ if(!empty($_SESSION["loggedin"])){
                                         <li><?php echo htmlspecialchars($datas['animal_gender']);?></li>
                                         <li><?php echo htmlspecialchars($datas['animal_size']);?> Kg</li>
                                     </ul>
-                                    
+                                    <div class="flex items-center mt-2 text-gray-700">
+                                        <svg class="h-6 w-6 fill-current" viewBox="0 0 512 512">
+                                        <path d="M256 32c-88.004 0-160 70.557-160 156.801C96 306.4 256 480 256 480s160-173.6 160-291.199C416 102.557 344.004 32 256 32zm0 212.801c-31.996 0-57.144-24.645-57.144-56 0-31.357 25.147-56 57.144-56s57.144 24.643 57.144 56c0 31.355-25.148 56-57.144 56z"/>
+                                    </svg>
+                                        <h1 class="px-2 text-sm"><?php echo htmlspecialchars($datas['city']);?></h1>
+                                    </div>
                                 </div>
                             </a>
                         </div>
@@ -89,7 +98,7 @@ if(!empty($_SESSION["loggedin"])){
             </div>
 
             <!-- See more button -->
-            
+            <?php if(!isset($_POST['search'])){ ?>
             <ul class="mb-6 mt-4 flex justify-center mx-auto my-8">
                 <?php 
                     for ($i=1; $i<=$pages ; $i++){
@@ -99,3 +108,4 @@ if(!empty($_SESSION["loggedin"])){
                 </li>
                 <?php } ?>
             </ul>
+            <?php } ?>

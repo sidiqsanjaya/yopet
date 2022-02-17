@@ -38,11 +38,13 @@ Class controler {
             require 'view/adopt.php'; //fix
         }elseif($url == 'more-adopt'){
             require 'view/navbar.php';
+            require 'view/search.php';
             require 'view/adoptapet.php'; //fix
 
 
         }elseif($url == 'forum'){
             require 'view/navbar.php';
+            require 'view/search.php';
             require 'view/forum.php';
 
         }elseif($url == 'logout'){

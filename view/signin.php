@@ -37,11 +37,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
              $_SESSION['level']    = $logincheck[3];
              $_SESSION['time_login'] = time();
 
-             $check3 = "redirect in 3 second";
+             $check2 = "redirect in 3 second";
              sleep(3);
              header("location: /");
         }else{
-            $check3 = "check again you input";
+            $check2 = "check again you input";
         }
     }
 }

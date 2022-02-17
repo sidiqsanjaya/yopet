@@ -12,48 +12,55 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     //call validate class
     $verify = new verify();
     
-    $checkfullname = $verify->checkfullname($_POST['inputfullname']);
+    $checkfullname = $verify->checkfullname(htmlspecialchars($_POST['inputfullname']));
     if($checkfullname == "empty"){
-        $check1 = "data kosong"; //harusnya ada warning
+        $check1 = "blank data";
     }
 
-    $checkfullname = $verify->checkusername($_POST['inputusername']);
+    $checkfullname = $verify->checkusername(htmlspecialchars($_POST['inputusername']));
     if($checkfullname == "empty"){
-        $check2 = "data kosong"; //harusnya ada warning
+        $check2 = "blank data";
     }elseif($checkfullname == "used"){
-        $check2 ="username sudah terpakai"; //harusnya ada warning
+        $check2 ="username is already in use";
     }
 
-    $checkemail = $verify->checkemail($_POST['inputemail']);
+    $checkemail = $verify->checkemail(htmlspecialchars($_POST['inputemail']));
     if($checkemail == "empty"){
-        $check3 = "data kosong"; //harusnya ada warning
+        $check3 = "blank data";
     }elseif($checkemail == "invalid"){
-        $check3 = "email tidak valid";
+        $check3 = "Invalid email";
     }elseif($checkemail == "used"){
-        $check3 = "email sudah terpakai";
+        $check3 = "e-mail already used";
     }
 
-    $checkpassword = $verify->checkpassword($_POST['inputpassword']) ;
+    $checkpassword = $verify->checkpassword(htmlspecialchars($_POST['inputpassword'])) ;
     if($checkpassword == "empty"){
-        $check4 = "data kosong"; //harusnya ada warning
+        $check4 = "blank data";
     }elseif($checkpassword == "notenough"){
-        $check4 = "password kurang 8 angka";
+        $check4 = "Should be at least 8 characters";
     }
 
-    $checknumber = $verify->checknumber($_POST['inputnumber']) ;
+    $checknumber = $verify->checknumber(htmlspecialchars($_POST['inputnumber'])) ;
+    echo $checknumber;
     if($checknumber == "empty"){
-        $check5 = "data kosong"; //harusnya ada warning
+        $check5 = "blank data";
     }elseif($checknumber == "notinteger"){
-        $check5 = "nomor yang dimasukan adalah huruf";
+        $check5 = "the number entered is the letter";
     }elseif($checknumber == "range"){
-        $check5 = "nomor yang dimasukan tidak valid";
+        $check5 = "the number entered is invalid";
     }
 
-    if(empty($check1.$check2.$check3.$check4.$check5)== true){
+    $checkcity = $verify->checkcity(htmlspecialchars($_POST['inputcity']));
+    if($checkcity == "empty"){
+        $check5 = "blank data";
+    }
+
+
+    if(empty($check1.$check2.$check3.$check4.$check5.$check5)== true){
         //call class signup
-        $createaccount = new signup($_POST['inputfullname'],$_POST['inputusername'],$_POST['inputemail'], $_POST['inputpassword'], $_POST['inputnumber']);
+        $createaccount = new signup(htmlspecialchars($_POST['inputfullname']),htmlspecialchars($_POST['inputusername']), htmlspecialchars($_POST['inputemail']), htmlspecialchars($_POST['inputpassword']), htmlspecialchars($_POST['inputnumber']),htmlspecialchars($_POST['inputcity']));
         $createaccount->createaccount();
-        sleep(2);
+        sleep(1);
         header("location: ?page=signin");
     }
     
@@ -75,7 +82,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <form action="?page=signup" method= "POST" class="bg-white">
                 <h1 class="text-gray-800 font-bold text-2xl mb-1">Sign up to Yopet.</h1>
                 <p class="text-sm font-normal text-gray-600 mb-7">Already a member? <a class="text-blue-600" href="?page=signin">Log in</a></p>
-
+                <?php if(!empty($check1.$check2.$check3.$check4.$check5.$check5)){ ?>
+                <div class="mb-3">
+                    <p class="py-2 px-4 bg-red-600 rounded-lg text-white">Please recheck the filled form</p>
+                </div>
+                <?php } ?>
                 <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
@@ -102,10 +113,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                             </svg>
-                    <input class="pl-2 outline-none border-none" type="text" name="inputemail" id="" <?php if(isset($_POST['inputemail']) == true){echo 'value="'.$_POST['inputemail'].'"';} ?> required placeholder="Email Address" />
+                    <input class="pl-2 outline-none border-none" type="email" name="inputemail" id="" <?php if(isset($_POST['inputemail']) == true){echo 'value="'.$_POST['inputemail'].'"';} ?> required placeholder="Email Address" />
                     </div>
                 <div class="">    
+                
                 <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
+                    <img src="view/images/call.svg" alt="">
+                        <input pattern="[0-9]*" class="pl-2 outline-none border-none" type="number" name="inputnumber" id="" <?php if(isset($_POST['inputnumber']) == true){echo 'value="'.$_POST['inputnumber'].'"';} ?> required placeholder="Phone number"  />
+                </div>
+                <?php if(!empty($check5)){ ?>
+                    <div class="flex justify-end">
+                        <p class="text-red-600">invalid phone number</p>
+                    </div>
+                <?php } ?>
+                <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
+                    <img src="view/images/location.svg" alt="">
+                    <input class="pl-2 outline-none border-none" type="text" name="inputcity" id="" <?php if(isset($_POST['inputcity']) == true){echo 'value="'.$_POST['inputcity'].'"';} ?>placeholder="Your city" />
+                </div>
+
+                <div class="flex items-center border-2 py-2 px-3 rounded-2xl">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd"
                                         d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
@@ -119,14 +145,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     </div>
                 <?php } ?>
                 </div>
-                <div class="flex items-center border-2 py-2 px-3 rounded-2xl">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                    <input class="pl-2 outline-none border-none" type="text" name="inputnumber" id="" <?php if(isset($_POST['inputnumber']) == true){echo 'value="'.$_POST['inputnumber'].'"';} ?> required placeholder="Phone number" />
-                </div>
+
                 <button type="submit" class="block w-full bg-gradient-to-r from-cyan-500 to-blue-500 mt-4 py-2 rounded-2xl text-white font-semibold mb-2">Sign up</button>
             </form>
         </div>

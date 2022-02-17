@@ -2,7 +2,8 @@
 if(!defined('MyConst')) {
     die('Direct access not permitted');
  }
-//class untuk verifikasi data
+define('MB', 1048576);
+//class for verify data
 Class verify{
     public function checkfullname($fullname){
         //to do check fullname
@@ -69,7 +70,7 @@ Class verify{
     public function checknumber($number){
         if(!trim($number)){
             return "empty";
-        }elseif(gettype($number) == "integer"){
+        }elseif(!gettype($number) == "integer"){
             return "notinteger";
         }elseif(strlen($number) < 9 || strlen($number) > 15 ){
             return "range"; //invalid number range
@@ -78,6 +79,12 @@ Class verify{
 
     public function checkusermail($usermail){
         if(!trim($usermail)){
+            return "empty";
+        }
+    }
+    
+    public function checkcity($city){
+        if(!trim($city)){
             return "empty";
         }
     }
@@ -97,7 +104,7 @@ Class verify{
     public function checkageweight($angka){
         if(!trim($angka)){
             return "empty";
-        }elseif(gettype($angka) == "integer"){
+        }elseif(gettype($angka) != "integer"){
             return "notinteger";
         }
     }
@@ -106,7 +113,25 @@ Class verify{
             return "empty";
         }
     }
-    
+    public function checkcategory($category){
+        if(!trim($category)){
+            return "empty";
+        }
+    }
+
+    public function checktype($type){
+        $extension = array("jpeg","jpg","png");
+        $ext = pathinfo($type, PATHINFO_EXTENSION);
+        if(in_array($ext, $extension) == false){
+        return "1";
+        }
+    }
+
+    public function checksizeimg($size){
+        if($size > 5*MB){
+            return "1";
+        }
+    }
 
 }
 
