@@ -64,8 +64,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <h1 class="text-gray-800 font-bold text-2xl mb-1">Sign in to Yopet.</h1>
                 <p class="text-sm font-normal text-gray-600 mb-7">Don't have an account? <a class="text-blue-500" href="?page=signup">Register</a></p>
                 <?php
-                echo $check1." | ".$check2." | ".$check3;
-                ?>
+                if(!empty($check1.$check2)){ ?>
+                <div class="mb-3">
+                    <p class="py-2 px-4 bg-red-600 rounded-lg text-white">Username or password is incorrect</p>
+                </div>
+                <?php } ?>
                 <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

@@ -171,6 +171,63 @@ Class post{
         }
     }
 
+    public function createforum($iduser,$comment){
+        $db = dbconnect();
+        if ($db->connect_errno == 0) {
+            $idforum = substr(md5(time()), 0, 7);
+            $sql = "INSERT INTO `forum` (`id_forum`, `id_user`, `content_post`, `date_post`) VALUES ('$idforum', '$iduser', '$comment', CURRENT_TIMESTAMP)";
+            $res = $db->query($sql);            
+        }else{
+            return false;
+        }
+    }
+
+    public function loadforum($start,$limit){
+        $db = dbconnect();
+        if ($db->connect_errno == 0) {
+            $sql = "SELECT `user`.`fullname`, `forum`.* FROM `user` RIGHT JOIN `forum` ON `forum`.`id_user` = `user`.`id_user` ORDER BY date_post DESC limit $start, $limit";
+            $res = $db->query($sql);            
+                if ($res) {               
+                    $data = $res->fetch_all(MYSQLI_ASSOC);
+                    $res->free();
+                    return $data;
+                } else
+                    return FALSE;
+        }else{
+            return false;
+        }
+    }
+
+    public function savecommentforum($iduser,$idforum,$comment){
+        $db = dbconnect();
+        if ($db->connect_errno == 0) {
+            $sql = "INSERT INTO `comment` (`id_comment`, `id_forum`, `id_post_adopt`, `id_user`, `content_comment`, `date_comment`) VALUES (NULL, '$idforum', NULL, $iduser, '$comment', CURRENT_TIMESTAMP)";
+            $res = $db->query($sql);            
+            if ($res) {               
+                return $res;
+            } else
+                return FALSE;
+        }else{
+            return false;
+        }
+    }
+
+    public function loadcommentforum($idpost){
+        $db = dbconnect();
+        if ($db->connect_errno == 0) {
+            $sql = "SELECT `comment`.`content_comment` ,`comment`.`date_comment`, `user`.`fullname` FROM `forum` LEFT JOIN `comment` ON `comment`.`id_forum` = `forum`.`id_forum` LEFT JOIN `user` ON `comment`.`id_user` = `user`.`id_user` WHERE `forum`.`id_forum` = '$idpost' ORDER BY `comment`.`id_comment` DESC";
+            $res = $db->query($sql);            
+                if ($res) {               
+                    $data = $res->fetch_all(MYSQLI_ASSOC);
+                    $res->free();
+                    return $data;
+                } else
+                    return FALSE;
+        }else{
+            return false;
+        }
+    }
+
 }
 
 Class forumpost extends post {
