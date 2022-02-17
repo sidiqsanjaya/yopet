@@ -71,7 +71,7 @@ if(trim($_GET['adopt-post'])!=""){
                     <div class="">
                         <button onclick="location.href='https://api.whatsapp.com/send?phone=+62<?php echo htmlspecialchars($detailpost[9]); ?>&text=Halo, saya tertarik dengan <?php echo htmlspecialchars($detailpost[2]);?> yang berasal dari postingan adopt YoPet'" class="px-6 rounded-full mt-4 py-3 bg-green-600 hover:bg-green-700 text-white">
                     Chat via Whatsapp
-                </button>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -105,14 +105,32 @@ if(trim($_GET['adopt-post'])!=""){
                     </form>
                 </div>
                 <?php 
+                var_dump($comment);
                 foreach ($comment as $datac) {
                 ?>
-                <div class="border px-4 py-2 mt-4 rounded-lg">
+                <div class="mb-6 px-4 py-2 mt-4 border rounded-lg">
                     <p>
-                        <div class="flex justify-between">
+                        <div class="flex items-center justify-between">
                             <h1 class="font-semibold"><?php echo htmlspecialchars($datac['fullname']); ?></h1>
-                            <p class="text-slate-500"><?php echo htmlspecialchars($datac['date_comment']); ?></p>
+                            <?php if(!empty($_SESSION['loggedin'])){if($_SESSION['level'] == "admin" OR $_SESSION['iduser']== $datac['id_user']){
+                                     ?>
+                                    <div class="flex md:order-2">
+                                            <div class="relative inline-block dropdown">
+                                                
+                                                <button class="inline-flex items-center px-4 py-2 font-semibold text-gray-700 bg-gray-300 rounded">
+                                                  <span class="mr-1"></span>
+                                                  <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/> </svg>
+                                                </button>
+                                                <ul class="absolute hidden pt-1 text-gray-600 dropdown-menu">
+                                                    <li class=""><a class="block px-4 py-2 whitespace-no-wrap bg-gray-200 hover:bg-red-500 hover:text-white" href="?deletec=<?php echo $datas['id_post_adopt']; ?> ">Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!-- aaaaa -->
+                                    <?php }} ?>
+                            
                         </div>
+                        <p class="text-gray-400"><?php echo htmlspecialchars($datac['date_comment']); ?></p>
                     </p>
                     <p class="mt-2"><?php echo htmlspecialchars($datac['content_comment']); ?></p>
                 </div>

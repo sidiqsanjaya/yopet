@@ -119,11 +119,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 
                 <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
                     <img src="view/images/call.svg" alt="">
-                        <input pattern="[0-9]" class="pl-2 outline-none border-none" type="text" name="inputnumber" id="" <?php if(isset($_POST['inputnumber']) == true){echo 'value="'.$_POST['inputnumber'].'"';} ?> required placeholder="Phone number"  />
+                        <input pattern="[0-9]+" class="pl-2 outline-none border-none" type="text" name="inputnumber" id="" <?php if(isset($_POST['inputnumber']) == true){echo 'value="'.$_POST['inputnumber'].'"';} ?> required placeholder="Phone number"  />
                 </div>
                 <?php if(!empty($check5)){ ?>
                     <div class="flex justify-end">
-                        <p class="text-red-600">invalid phone number</p>
+                        <p class="text-red-600">please enter 9 - 13 digits phone numbers.</p>
                     </div>
                 <?php } ?>
                 <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">

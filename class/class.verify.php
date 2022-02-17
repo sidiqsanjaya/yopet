@@ -102,9 +102,9 @@ Class verify{
     }
 
     public function checkageweight($angka){
-        if(!trim($angka)){
+        if(empty($angka)){
             return "empty";
-        }elseif(gettype($angka) != "integer"){
+        }elseif(!gettype($angka) == "integer"){
             return "notinteger";
         }
     }

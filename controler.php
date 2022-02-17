@@ -32,26 +32,29 @@ Class controler {
         }elseif($url == 'postpet'){
             require 'view/navbar.php';
             require 'view/post.php'; //fix
+            
+            
 
         }elseif($url == 'adopt-details'){
             require 'view/navbar.php';
             require 'view/adopt.php'; //fix
+            require 'view/footer.php';
+            
         }elseif($url == 'more-adopt'){
             require 'view/navbar.php';
             require 'view/search.php';
             require 'view/adoptapet.php'; //fix
+            require 'view/footer.php';
 
 
         }elseif($url == 'forum'){
             require 'view/navbar.php';
             require 'view/search.php';
             require 'view/forum.php';
+            require 'view/footer.php';
 
         }elseif($url == 'logout'){
             require 'logout.php'; //fix
-
-        }elseif($url == 'scomment'){
-            require 'view/scomment.php';
 
         }else{
             require 'view/navbar.php';

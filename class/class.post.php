@@ -181,7 +181,7 @@ Class post{
     public function loadcommentpost($idpost){
         $db = dbconnect();
         if ($db->connect_errno == 0) {
-            $sql = "SELECT `comment`.`content_comment` ,`comment`.`date_comment`, `user`.`fullname` FROM `post_adopt` LEFT JOIN `comment` ON `comment`.`id_post_adopt` = `post_adopt`.`id_post_adopt` LEFT JOIN `user` ON `comment`.`id_user` = `user`.`id_user` WHERE `post_adopt`.`id_post_adopt` = '$idpost' ORDER BY `comment`.`id_comment` DESC LIMIT 10";
+            $sql = "SELECT `comment`.`content_comment` ,`comment`.`date_comment`, `user`.`fullname`,`user`.`id_user` FROM `post_adopt` LEFT JOIN `comment` ON `comment`.`id_post_adopt` = `post_adopt`.`id_post_adopt` LEFT JOIN `user` ON `comment`.`id_user` = `user`.`id_user` WHERE `post_adopt`.`id_post_adopt` = '$idpost' ORDER BY `comment`.`id_comment` DESC LIMIT 10";
             $res = $db->query($sql);            
                 if ($res) {               
                     $data = $res->fetch_all(MYSQLI_ASSOC);

@@ -132,7 +132,7 @@ if(!empty($_SESSION["loggedin"])){
                 <?php 
                     for ($i=1; $i<=$pages ; $i++){
                 ?>
-                <li class="px-3 py-2 mx-1 text-gray-700 rounded-lg <?php if($page==$i) echo "bg-gradient-to-r from-cyan-500 to-blue-500"; echo "bg-gray-200 rounded-lg hover:bg-gray-700"; ?>  hover:text-gray-200 ">
+                <li class="px-3 py-2 mx-1 text-gray-700 rounded-lg <?php if($page==$i){ echo "bg-gray-200";}else{echo "bg-gray-200 rounded-lg hover:bg-gray-700"; } ?>">
                     <a class="" href="?ipage=<?php echo $i; ?>"><?php echo $i; ?></a>
                 </li>
                 <?php } ?>
