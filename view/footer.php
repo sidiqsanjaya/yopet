@@ -1,3 +1,8 @@
+<?php
+if(!defined('MyConst')) {
+    die('Direct access not permitted');
+ }
+ ?>
 <div class="">
             <footer class="text-gray-600 body-font bg-gray-700">
                 <div class="container px-8 lg:px-32 xl:px-40 mx-auto p-8 text-white">
