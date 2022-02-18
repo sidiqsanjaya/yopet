@@ -42,19 +42,23 @@ Class controler {
 
         }elseif($url == 'more-adopt'){
             require 'view/navbar.php';
-            require 'view/search.php';
+            require 'view/search.php'; //fix
             require 'view/adoptapet.php'; //fix
             require 'view/footer.php';
 
 
         }elseif($url == 'profile'){
             require 'view/navbar.php';
-            require 'view/profile.php';
+            require 'view/profile.php'; //fix
+
+        }elseif($url == 'edit-profile'){
+            require 'view/navbar.php';
+            require 'view/editprofile.php'; //fix
 
 
         }elseif($url == 'forum'){
             require 'view/navbar.php';
-            require 'view/search.php';
+            require 'view/search.php'; //fix
             require 'view/forum.php'; //fix
             require 'view/footer.php';
 

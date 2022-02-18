@@ -329,7 +329,7 @@ Class post{
     public function profilepost($iduser){
         $db = dbconnect();
         if ($db->connect_errno == 0) {
-            $sql = "SELECT `user`.`id_user`, `post_adopt`.* FROM `user` LEFT JOIN `post_adopt` ON `post_adopt`.`id_user` = `user`.`id_user` WHERE `user`.`id_user` = $iduser";  
+            $sql = "SELECT `user`.`id_user`,`user`.`city`, `post_adopt`.* FROM `user` LEFT JOIN `post_adopt` ON `post_adopt`.`id_user` = `user`.`id_user` WHERE `user`.`id_user` = $iduser";  
                                 
             $res = $db->query($sql);
             if(mysqli_num_rows($res)>0){
@@ -349,7 +349,7 @@ Class post{
         if ($db->connect_errno == 0) {
             $sql = "SELECT `user`.`id_user`, `forum`.* FROM `user` LEFT JOIN `forum` ON `forum`.`id_user` = `user`.`id_user` WHERE `user`.`id_user` = $iduser";           
             $res = $db->query($sql);
-            if(mysqli_num_rows($res)>1){
+            if(mysqli_num_rows($res)>0){
                 $data = $res->fetch_all(MYSQLI_ASSOC);
                 $res->free();
                 return $data;                  
