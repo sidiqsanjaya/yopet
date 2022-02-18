@@ -39,13 +39,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $cek = $account->updateprofile($_SESSION['iduser'],$_SESSION['email'],$_SESSION['username'],"city",htmlspecialchars($_POST['inputcity']));
     }
 
-    $checkpassword = $verify->checkpassword(htmlspecialchars($_POST['inputpassword'])) ;
+    $checkpassword = $verify->checkpassword(htmlspecialchars($_POST['inputpassword']));
     if($checkpassword == "empty"){
         $check4 = "blank data";
     }elseif($checkpassword == "notenough"){
         $check4 = "Should be at least 8 characters";
     }else{
-        $cek = $account->updateprofile($_SESSION['iduser'],$_SESSION['email'],$_SESSION['username'],"password",htmlspecialchars(md5($_POST['inputpassword'])));
+        //$cek = $account->updateprofile($_SESSION['iduser'],$_SESSION['email'],$_SESSION['username'],"password",htmlspecialchars(md5($_POST['inputpassword'])));
     }
 
     header("location: /?page=edit-profile&update=done");
