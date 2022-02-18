@@ -41,7 +41,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     $checknumber = $verify->checknumber(htmlspecialchars($_POST['inputnumber'])) ;
-    echo $checknumber;
     if($checknumber == "empty"){
         $check5 = "blank data";
     }elseif($checknumber == "notinteger"){
@@ -81,7 +80,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <div class="flex md:w-1/2 justify-center py-10 items-center bg-white">
             <form action="?page=signup" method= "POST" class="bg-white">
                 <h1 class="text-gray-800 font-bold text-2xl mb-1">Sign up to Yopet.</h1>
-                <p class="text-sm font-normal text-gray-600 mb-7">Already a member? <a class="text-blue-600" href="?page=signin">Log in</a></p>
+                <p class="text-sm font-normal text-gray-600 mb-7">Already a member? <a class="text-blue-600" href="?page=signin">Signin</a></p>
                 <?php if(!empty($check1.$check2.$check3.$check4.$check5.$check5)){ ?>
                 <div class="mb-3">
                     <p class="py-2 px-4 bg-red-600 rounded-lg text-white">Please recheck the filled form</p>

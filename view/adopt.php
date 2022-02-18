@@ -15,8 +15,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($_SESSION['loggedin'])){
         header("location: ?page=signin");
     }else{
-        $aaa = $post->savecommentpost(htmlspecialchars($_SESSION['iduser']),htmlspecialchars($_GET['adopt-post']),htmlspecialchars(htmlspecialchars($_POST['comment'])));
-        
+        $aaa = $post->savecommentpost(htmlspecialchars($_SESSION['iduser']),htmlspecialchars($_GET['adopt-post']),htmlspecialchars(htmlspecialchars($_POST['comment'])));  
+        $inpost  = $_GET['adopt-post']; 
+        header("location: ?page=adopt-details&adopt-post=".$inpost);     
     }
 }
 if(!empty($_GET['adopt-post']) && !empty($_GET['deletec'])){
@@ -81,20 +82,29 @@ if(trim($_GET['adopt-post'])!=""){
                 </h2>
                 <p class="mt-2 text-lg text-justify text-gray-500 mt-4"> <?php echo $detailpost[3]; ?>
                 </p>
-                <div class="grid grid-cols-4 gap-1">
+
+                <div class="grid md:grid-cols-4 grid-cols-2 gap-1 mt-4">
                     <div class="">
-                        <button onclick="shareinsocialmedia('https://api.whatsapp.com/send?phone=+62<?php echo htmlspecialchars($detailpost[9]); ?>&text=Halo, saya tertarik dengan <?php echo htmlspecialchars($detailpost[2]);?> yang berasal dari postingan adopt YoPet')" href="" class="bg-gradient-to-r from-green-400 to-green-600 text-white px-6 py-2 rounded-full">Chat via whatsapp</button>
+                        <button  onclick="shareinsocialmedia('https://api.whatsapp.com/send?phone=+62<?php echo htmlspecialchars($detailpost['number_phone']); ?>&text=Halo, saya tertarik dengan <?php echo htmlspecialchars($detailpost[2]);?> yang berasal dari postingan adopt YoPet')" class="bg-gradient-to-r from-green-400 to-green-500 text-white  py-2 px-4 rounded-lg inline-flex w-full items-center">
+                            <img class="w-8" src="view/icon/whatsapp.svg" alt="">
+                            <span class="ml-2">Chat via whatsapp</span>
+                          </button>
                     </div>
 
                     <div class="">
-                        <button onclick="shareinsocialmedia('http://www.facebook.com/sharer.php?u=<?php echo $url; ?>&title=<?php echo htmlspecialchars($detailpost[2]);; ?>')" href="" class="bg-gradient-to-r from-blue-400 to-blue-600 text-white px-6 py-2 rounded-full">Share to Facebook</button>
+                        <button onclick="shareinsocialmedia('http://www.facebook.com/sharer.php?u=<?php echo $url; ?>&title=<?php echo htmlspecialchars($detailpost[2]);; ?>')" href=""  class="bg-gradient-to-r from-blue-400 to-blue-600 text-white  py-2 px-4 rounded-lg inline-flex w-full items-center">
+                            <img class="w-8" src="view/icon/facebook.svg" alt="">
+                            <span class="ml-2">Share to Facebook</span>
+                          </button>
                     </div>
 
                     <div class="">
-                        <button onclick="setClipboard('<?php echo $url; ?>')" class="bg-gradient-to-r bg-white  border-2 px-6 py-2 rounded-full">Copy to clipboard</button>
-                    </div>
-                    
-                </div>                
+                        <button onclick="setClipboard('<?php echo $url; ?>')" class="bg-gradient-to-r from-gray-300 to-gray-400 text-white  py-2 px-4 rounded-lg inline-flex w-full items-center">
+                            <img class="w-8" src="view/icon/copy.svg" alt="">
+                            <span class="ml-2">Copy to clipboard</span>
+                          </button>
+                    </div> 
+</div>           
             </div>
         </div>
 
@@ -118,7 +128,7 @@ if(trim($_GET['adopt-post'])!=""){
                 <div class="border mb-6 rounded-lg">
                     <form action="?page=adopt-details&adopt-post=<?php echo $_GET['adopt-post']; ?>" class="" method="POST">
                         <div class="flex items-center py-2">
-                            <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-4 leading-tight  focus:outline-none" type="text" name="comment" placeholder="Write a comment" aria-label="Full name" required>
+                            <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-4 leading-tight  focus:outline-none" type="text" name="comment" placeholder="Write a comment" aria-label="Full name">
                             <button class="flex-shrink-0 mr-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-2 px-6 rounded" type="submit">
                           submit
                         </button>

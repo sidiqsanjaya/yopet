@@ -11,14 +11,14 @@
                         </div>
                         <div class="mt-8 text-center md:text-left">
                             <h1 class="font-semibold text-xl">Information</h1>
-                            <p class=" opacity-60 mt-2 font-thin">Website ini dibuat untuk memenuhi tugas besar mata kuliah Rekayasa Perangkat Lunak 2 Universitas Komputer Indonesia.</p>
+                            <p class=" opacity-60 mt-2 font-thin">This website was created to fulfill a major assignment for the Software Engineering course 2, Indonesian Computer University.</p>
                         </div>
                         <div class="mt-8 text-center md:text-left">
                             <h1 class="font-semibold text-xl">Anggota Kelompok :</h1>
                             <ul class="opacity-60 mt-2 font-thin">
                                 <li>10119142 - Mochammad Rafy Ardhanie</li>
                                 <li>10119143 - Ade Kurniawan</li>
-                                <li>101191 - Muhamad Farid Laksmana</li>
+                                <li>10119159 - Muhamad Farid Laksmana</li>
                                 <li>10119147 - Juliadit Syahputra</li>
                                 <li>10119152 - Resa Endrawan</li>
                                 <li>10119167 - Siddiq Sanjaya Bakti</li>

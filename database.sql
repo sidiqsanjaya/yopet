@@ -27,15 +27,9 @@ CREATE TABLE `comment` (
   CONSTRAINT `comment_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `comment_ibfk_4` FOREIGN KEY (`id_forum`) REFERENCES `forum` (`id_forum`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `comment_ibfk_5` FOREIGN KEY (`id_post_adopt`) REFERENCES `post_adopt` (`id_post_adopt`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 /*Data for the table `comment` */
-
-insert  into `comment`(`id_comment`,`id_forum`,`id_post_adopt`,`id_user`,`content_comment`,`date_comment`) values 
-(1,NULL,'c33041b',2,'','2022-02-16 21:39:40'),
-(2,NULL,'c33041b',2,'sadawad','2022-02-16 21:43:56'),
-(3,NULL,'c33041b',2,'test','2022-02-16 21:59:19'),
-(9,NULL,'c33041b',2,'asuuu','2022-02-17 17:49:35');
 
 /*Table structure for table `forum` */
 
@@ -51,9 +45,6 @@ CREATE TABLE `forum` (
 
 /*Data for the table `forum` */
 
-insert  into `forum`(`id_forum`,`id_user`,`content_post`,`date_post`) values 
-('c76931b',2,'sedih, salah wae','2022-02-17 21:51:01');
-
 /*Table structure for table `multiple_photo_post` */
 
 CREATE TABLE `multiple_photo_post` (
@@ -63,17 +54,13 @@ CREATE TABLE `multiple_photo_post` (
   PRIMARY KEY (`id_multiple_photo_post`),
   KEY `id_post_adopt` (`id_post_adopt`),
   CONSTRAINT `multiple_photo_post_ibfk_1` FOREIGN KEY (`id_post_adopt`) REFERENCES `post_adopt` (`id_post_adopt`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
 
 /*Data for the table `multiple_photo_post` */
 
 insert  into `multiple_photo_post`(`id_multiple_photo_post`,`id_post_adopt`,`photo_img_post`) values 
-(37,'c33041b','view/img/c33041bnisp_art-.jpg'),
-(39,'d627f8a','view/img/d627f8anisp_art-.jpg'),
 (40,'68f7afa','view/img/68f7afa174277560_297501488426347_4718764925351016275_n.jpg'),
-(41,'d358ae3','view/img/d358ae3download (5).png'),
-(42,'d358ae3','view/img/d358ae3download.jfif'),
-(43,'d358ae3','view/img/d358ae3images.jpeg');
+(47,'b8dd9a6','view/img/b8dd9a6img_raw_34915788raw.jpg');
 
 /*Table structure for table `post_adopt` */
 
@@ -97,9 +84,7 @@ CREATE TABLE `post_adopt` (
 
 insert  into `post_adopt`(`id_post_adopt`,`id_user`,`title_post_adopt`,`description`,`date_post`,`animal_age`,`animal_size`,`animal_gender`,`status_adopt`,`category_animal`) values 
 ('68f7afa',2,'rakun','loredipsim','2022-02-16 19:39:12',50,30,'female','undone','Insect'),
-('c33041b',1,'kucing','sa\r\nsadaw\r\ndaw','2022-02-16 14:09:49',3,4,'male','undone','Anjing'),
-('d358ae3',2,'lo telat','sadawad','2022-02-16 19:47:17',60,12,'male','undone','Insect'),
-('d627f8a',2,'das','asaw','2022-02-16 16:13:32',4,6,'male','undone','Other');
+('b8dd9a6',2,'vilager','jual hewa berupa villager di minecraft','2022-02-18 16:24:35',2,3,'male','undone','Sugar Glider');
 
 /*Table structure for table `user` */
 

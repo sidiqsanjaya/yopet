@@ -97,7 +97,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             name="inputdesc" id="desc" cols="32" rows="3" placeholder="Description"  required><?php if(isset($_POST['inputdesc']) == true){echo $_POST['inputdesc'];} ?></textarea>
                         <div class="grid grid-cols-3 gap-4">    
                             <div class="">
-                                <input type="number" min=0 placeholder="Age" name="inputage" class=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400" <?php if(isset($_POST['inputage']) == true){echo 'value="'.$_POST['inputage'].'"';} ?> required>
+                                <input type="number" min=0 placeholder="Age (Month)" name="inputage" class=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400" <?php if(isset($_POST['inputage']) == true){echo 'value="'.$_POST['inputage'].'"';} ?> required>
                             </div>
                             <div class="flex justify-center gap-4 mt-4">
                                 <div class="form-check form-check-inline">

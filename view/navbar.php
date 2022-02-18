@@ -12,7 +12,7 @@
                 <!-- menu -->
                 <?php if(empty($_SESSION["loggedin"])){ ?>
                 <div class="flex md:order-2">
-                    <a href="?page=signin" type="button" class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-semibold rounded-lg text-sm px-5 py-2.5 text-center md:mr-0 ">Login</a>
+                    <a href="?page=signin" type="button" class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-semibold rounded-lg text-sm px-5 py-2.5 text-center md:mr-0 ">Signin</a>
 
                     </a>
                 </div>
@@ -39,7 +39,7 @@
                             <a href="?page=forum" class="block py-2 pl-3 pr-4 font-semibold text-gray-400 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">Forum</a>
                         </li>
                         <li>
-                            <a href="#" class="block py-2 pl-3 pr-4 font-semibold text-gray-400 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">About us</a>
+                            <a href="?page=about-us" class="block py-2 pl-3 pr-4 font-semibold text-gray-400 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">About us</a>
                         </li>
                         </li>
                     </ul>

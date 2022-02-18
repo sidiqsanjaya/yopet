@@ -62,7 +62,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <div class="flex md:w-1/2 justify-center py-10 items-center bg-white">
             <form action="?page=signin" method= "POST" class="bg-white">
                 <h1 class="text-gray-800 font-bold text-2xl mb-1">Sign in to Yopet.</h1>
-                <p class="text-sm font-normal text-gray-600 mb-7">Don't have an account? <a class="text-blue-500" href="?page=signup">Register</a></p>
+                <p class="text-sm font-normal text-gray-600 mb-7">Don't have an account? <a class="text-blue-500" href="?page=signup">Signup</a></p>
                 <?php
                 if(!empty($check1.$check2)){ ?>
                 <div class="mb-3">

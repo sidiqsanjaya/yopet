@@ -16,7 +16,6 @@ Class controler {
     public function geturl($url){
         include 'view/head.php';
 
-        echo($url);
         if($url == ''){
            require 'view/navbar.php';
            require 'view/dashboard.php'; //fix
@@ -60,6 +59,11 @@ Class controler {
             require 'view/navbar.php';
             require 'view/search.php'; //fix
             require 'view/forum.php'; //fix
+            require 'view/footer.php';
+
+        }elseif($url == 'about-us'){
+            require 'view/navbar.php';
+            require 'view/about.php'; //fix
             require 'view/footer.php';
 
         }elseif($url == 'logout'){

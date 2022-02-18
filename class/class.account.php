@@ -65,6 +65,32 @@ Class account{
         }
     }
 
+    public function updateprofile($iduser,$idemail,$idusername,$cmd,$data){
+        $db = dbconnect();
+        if ($db->connect_errno == 0) {
+            //check account valid
+            $sqlcek = "SELECT * FROM `user` WHERE `id_user` = $iduser AND `username` = '$idusername' AND `email` = '$idemail'";
+            $rescek = $db->query($sqlcek);
+            //check info same or not
+            if(mysqli_num_rows($rescek)==1){
+            $sqlsama = "SELECT * FROM `user` WHERE `id_user` = $iduser AND `username` = '$idusername' AND `email` = '$idemail' AND `$cmd` = '$data'";
+            $ressama = $db->query($sqlsama);
+                //change info if not same
+                if(mysqli_num_rows($ressama)<1){
+                    $sqlchange = "UPDATE `user` SET `$cmd` = '$data' WHERE `user`.`id_user` = $iduser AND `user`.`email` = '$idemail' AND `username` = '$idusername'";
+                    $db->query($sqlchange);
+                    return "ok";                  
+                }else{
+                    return "same";
+                }
+            }else{
+                return "notfound";
+            }
+        }else{
+            return false;
+        }
+    }
+
 }
 class signup extends account {
     public function createaccount(){

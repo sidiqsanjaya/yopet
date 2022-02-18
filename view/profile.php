@@ -68,7 +68,9 @@ if(isset($_GET['deletef'])){
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             <!-- items 1 -->
             <?php
-            foreach ($profpost as $datas) {$img  = $post->dashimg($datas['id_post_adopt']);?>
+            foreach ($profpost as $datas) {$img  = $post->dashimg($datas['id_post_adopt']);
+            if($datas['id_post_adopt'] != NULL){
+            ?>
             <div class="max-w-full my-4 overflow-hidden bg-white rounded-lg shadow-lg">
                 <a href="?page=adopt-details&adopt-post=<?php echo htmlspecialchars($datas['id_post_adopt']); ?>">
                     <img class="object-cover object-center w-full h-56" src="<?php echo htmlspecialchars($img[0]); ?>" alt="avatar">
@@ -99,16 +101,16 @@ if(isset($_GET['deletef'])){
                             <svg class="w-6 h-6 fill-current" viewBox="0 0 512 512">
                             <path d="M256 32c-88.004 0-160 70.557-160 156.801C96 306.4 256 480 256 480s160-173.6 160-291.199C416 102.557 344.004 32 256 32zm0 212.801c-31.996 0-57.144-24.645-57.144-56 0-31.357 25.147-56 57.144-56s57.144 24.643 57.144 56c0 31.355-25.148 56-57.144 56z"/>
                         </svg>
-                            <h1 class="px-2 text-sm"><?php echo htmlspecialchars($datas['city']);?></h1>
+                            <h1 class="px-2 text-sm"><?php echo $profile['city'];?></h1>
                         </div>
                     </div>
                 </a>
             </div>
-            <?php } ?>
+            <?php }} ?>
         </div>
 
         <div class="flex justify-between mt-6">
-            <h1 class="text-xl font-semibold md:text-2xl">Post Adoption</h1>
+            <h1 class="text-xl font-semibold md:text-2xl">Forum</h1>
         </div>
 
         <?php
