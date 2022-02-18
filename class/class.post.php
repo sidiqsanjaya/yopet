@@ -268,7 +268,7 @@ Class post{
     public function loadcommentforum($idpost){
         $db = dbconnect();
         if ($db->connect_errno == 0) {
-            $sql = "SELECT `comment`.`content_comment` ,`comment`.`date_comment`, `user`.`fullname` , `user`.`id_user`, `forum`.`id_forum`, `comment`.`id_comment` FROM `forum` LEFT JOIN `comment` ON `comment`.`id_forum` = `forum`.`id_forum` LEFT JOIN `user` ON `comment`.`id_user` = `user`.`id_user` WHERE `forum`.`id_forum` = '$idpost' ORDER BY `comment`.`id_comment` DESC LIMIT 10";
+            $sql = "SELECT `comment`.`content_comment` ,`comment`.`date_comment`, `user`.`fullname` , `user`.`id_user`, `forum`.`id_forum`, `comment`.`id_comment` FROM `forum` LEFT JOIN `comment` ON `comment`.`id_forum` = `forum`.`id_forum` LEFT JOIN `user` ON `comment`.`id_user` = `user`.`id_user` WHERE `forum`.`id_forum` = '$idpost' ORDER BY `comment`.`id_comment` ASC LIMIT 10";
             $res = $db->query($sql);            
                 if ($res) {               
                     $data = $res->fetch_all(MYSQLI_ASSOC);
@@ -285,9 +285,7 @@ Class post{
         $db = dbconnect();
         if ($db->connect_errno == 0) {
             if($level=="admin"){
-                $sql = "SELECT `forum`.`id_forum`
-                FROM `forum`
-                WHERE `fporum`.`id_forum` = '$idpost'";
+                $sql = "SELECT `forum`.`id_forum` FROM `forum` WHERE `forum`.`id_forum` = '$idpost'";
             }elseif($level=="user"){
                 $sql ="SELECT `forum`.`id_forum`, `user`.`id_user`, `user`.`username` FROM `forum` LEFT JOIN `user` ON `forum`.`id_user` = `user`.`id_user` WHERE `forum`.`id_forum` = '$idpost' AND `user`.`id_user` = $iduser AND `user`.`username` = '$idusername'";
             }
@@ -310,7 +308,7 @@ Class post{
             if($level=="admin"){
                 $sql = "SELECT `forum`.`id_forum`
                 FROM `forum`
-                WHERE `fporum`.`id_forum` = '$idpost'";
+                WHERE `forum`.`id_forum` = '$idpost'";
             }elseif($level=="user"){
                 $sql = "SELECT `comment`.`id_comment`, `forum`.`id_forum`, `user`.`id_user`, `user`.`username` FROM `comment` LEFT JOIN `forum` ON `comment`.`id_forum` = `forum`.`id_forum` LEFT JOIN `user` ON `comment`.`id_user` = `user`.`id_user` WHERE `user`.`id_user` = $iduser AND `user`.`username` = '$idusername' AND `forum`.`id_forum` = '$idpost' AND `comment`.`id_comment` = '$idcomment'";
             }           
@@ -329,13 +327,11 @@ Class post{
     public function profilepost($iduser){
         $db = dbconnect();
         if ($db->connect_errno == 0) {
-            $sql = "SELECT  `post_adopt`.* FROM `user` LEFT JOIN `post_adopt` ON `post_adopt`.`id_user` = `user`.`id_user` WHERE `user`.`id_user` = $iduser";  
+            $sql = "SELECT `user`.`id_user`,`user`.`city`, `post_adopt`.* FROM `user` LEFT JOIN `post_adopt` ON `post_adopt`.`id_user` = `user`.`id_user` WHERE `user`.`id_user` = $iduser";  
                                 
             $res = $db->query($sql);
-            var_dump($res);
             if(mysqli_num_rows($res)>0){
                 $data = $res->fetch_all(MYSQLI_ASSOC);
-                var_dump($data);
                 $res->free();
                 return $data;                  
             }else{
