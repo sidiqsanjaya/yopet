@@ -48,12 +48,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }else{
         $cek = $account->updateprofile($_SESSION['iduser'],$_SESSION['email'],$_SESSION['username'],"password",htmlspecialchars(md5($_POST['inputpassword'])));
         $check9= "1";
+        $done="done";
     }
 
-    if($check9 == "1"){
-        header("location: /?page=edit-profile&update=done&pass=done");
+    if($check4 != "Should be at least 8 characters"){
+        if($check9 == "1"){
+            header("location: /?page=edit-profile&update=done&pass=done");
+        }else{
+            header("location: /?page=edit-profile&update=done");
+        }
     }else{
-        header("location: /?page=edit-profile&update=done");
+        header("location: /?page=edit-profile&update=done&pass=Password Should be at least 8 characters");
     }
 }
 
@@ -78,7 +83,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <?php
                     if(!empty($_GET['pass'])){ ?>
                         <div class="mx-6 mb-3">
-                            <p class="py-2 px-4 bg-green-600 rounded-lg text-white">Update password successfuly </p>
+                            <p class="py-2 px-4 bg-<?php if($_GET['pass'] == "done"){?>green<?php }else{?>red<?php } ?>-600 rounded-lg text-white"><?php if($_GET['pass'] == "done"){?>Update password successfuly<?php }else{ echo $_GET['pass']; } ?></p>
                         </div>
                         <?php } ?>
                     </div>
