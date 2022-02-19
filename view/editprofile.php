@@ -9,7 +9,7 @@ if(empty($_SESSION["loggedin"])){
 $check1=$check2=$check3=$check4="";
 $account= new account();
 $profile = $account->profile($_SESSION['iduser'],$_SESSION['username'],$_SESSION['email']);
-
+$check9="";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     //call validate class
     $verify = new verify();
@@ -37,6 +37,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $check3 = "blank data";
     }else{
         $cek = $account->updateprofile($_SESSION['iduser'],$_SESSION['email'],$_SESSION['username'],"city",htmlspecialchars($_POST['inputcity']));
+        $check10= "1";
     }
 
     $checkpassword = $verify->checkpassword(htmlspecialchars($_POST['inputpassword']));
@@ -45,10 +46,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }elseif($checkpassword == "notenough"){
         $check4 = "Should be at least 8 characters";
     }else{
-        //$cek = $account->updateprofile($_SESSION['iduser'],$_SESSION['email'],$_SESSION['username'],"password",htmlspecialchars(md5($_POST['inputpassword'])));
+        $cek = $account->updateprofile($_SESSION['iduser'],$_SESSION['email'],$_SESSION['username'],"password",htmlspecialchars(md5($_POST['inputpassword'])));
+        $check9= "1";
     }
 
-    header("location: /?page=edit-profile&update=done");
+    if($check9 == "1"){
+        header("location: /?page=edit-profile&update=done&pass=done");
+    }else{
+        header("location: /?page=edit-profile&update=done");
+    }
 }
 
 ?>
@@ -64,7 +70,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <?php
                     if(!empty($_GET['update'])){ ?>
                         <div class="mx-6 mb-3">
-                            <p class="py-2 px-4 bg-green-600 rounded-lg text-white">Update info successful </p>
+                            <p class="py-2 px-4 bg-green-600 rounded-lg text-white">Update info successfuly </p>
+                        </div>
+                        <?php } ?>
+                    </div>
+                    <div class="px-5">
+                    <?php
+                    if(!empty($_GET['pass'])){ ?>
+                        <div class="mx-6 mb-3">
+                            <p class="py-2 px-4 bg-green-600 rounded-lg text-white">Update password successfuly </p>
                         </div>
                         <?php } ?>
                     </div>
