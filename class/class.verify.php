@@ -101,10 +101,10 @@ Class verify{
         } 
     }
 
-    public function checkageweight($angka){
-        if(empty($angka)){
+    public function checkageweight($number){
+        if(empty($number)){
             return "empty";
-        }elseif(!gettype($angka) == "integer"){
+        }elseif(!gettype($number) == "integer"){
             return "notinteger";
         }
     }
