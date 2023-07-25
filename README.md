@@ -8,6 +8,3 @@ username database : root
 password database : root
 database name     : rpl2_v
 
-kerendensial login ke website
-username : sidiqsanjaya
-password : akudandaigh0822 
